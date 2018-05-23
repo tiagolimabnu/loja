@@ -1,0 +1,203 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:define name="title">
+        Fornecedores
+ </ui:define>
+		
+		<ui:decorate template="/home.xhtml">
+			
+				<ui:define name="content">
+			
+								<p:panel id="toggleable" header="Fornecedor" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" style="margin-top: 50px;margin-bottom:40px">
+		 
+					   				 		<p:commandButton value="Novo Fornecedor" type="button" onclick="PF('dialogfornecedor').show();"/>
+					   				 
+													 <h:form id="frmfornecedor">
+													
+															<p:dataTable var="fornecedor" id="tabelafornecedor" value="#{fornecedorMB.fornecedores}" 
+																		rows="10" paginator="true"
+																		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+																		rowsPerPageTemplate="5,10,15,50"  emptyMessage="Nenhum fornecedor encontrado" paginatorPosition="bottom" >
+												    				
+													    				<p:column style="width: 60px">
+													    				 		 <p:commandButton oncomplete="PF('atualizafornecedor').show()" icon="ui-icon-pencil" process="@this" update="frmfornecedor">
+																						<f:setPropertyActionListener value="#{fornecedor}" target="#{fornecedorMB.fornecedor}" />
+																				 </p:commandButton>
+													    				</p:column>
+																
+																		<p:column headerText="Nome / Razão Social" filterBy="#{fornecedor.nome}" sortBy="#{fornecedor.nome}" filterMatchMode="contains" style="font-size:14px">
+																				<h:outputText value="#{fornecedor.nome}" />
+																		</p:column>
+												
+																		<p:column headerText="CNPJ"  sortBy="#{fornecedor.cnpj}" filterMatchMode="contains" style="width:175px;font-size:14px">
+																				<h:outputText value="#{fornecedor.cnpj}" />
+																		</p:column>
+																	
+																		<p:column headerText="CELULAR" sortBy="#{fornecedor.celular}" style="width:150px;font-size:14px;">
+																				<h:outputText value="#{fornecedor.celular}"/>
+																		</p:column>
+												
+																		<p:column headerText="TELEFONE"  sortBy="#{fornecedor.telefone}" style="width:150px;font-size:14px;" >
+																				<h:outputText value="#{fornecedor.telefone}" />
+																		</p:column>
+												
+																		<p:column headerText="EMAIL"  sortBy="#{fornecedor.email}" style="font-size:14px;">
+																				<h:outputText value="#{fornecedor.email}" />
+																		</p:column>
+																		
+																		<p:column headerText="ENDEREÇO"  sortBy="#{fornecedor.email}" style="font-size:14px;">
+																				<h:outputText value="#{fornecedor.endereco}" />
+																		</p:column>
+																			
+																		<p:column style="width: 60px">    			
+												                        		<p:commandButton oncomplete="PF('removerfornecedor').show()" icon="ui-icon-trash" process="@this" update="frmfornecedor">
+																						<f:setPropertyActionListener value="#{fornecedor}" target="#{fornecedorMB.fornecedor}" />
+																				</p:commandButton>
+												            	  		</p:column>
+																			
+																			<f:facet name="footer">
+													      				  				Total de fornecedores cadastrado #{fornecedorMB.fornecedores.size()}
+													    					</f:facet>
+															</p:dataTable>
+																
+															<p:dialog header="Atualizar Fornecedor" modal="true" draggable="true" width="700" height="295"  resizable="false"
+																		widgetVar="atualizafornecedor" >
+																	
+																		<div class="row" >
+											   									
+											   									 <div class="col-50">
+														                            	<p:outputLabel for="nome" value="Nome / Razão Social"/>
+														                            	<p:inputText   id="nome"  value="#{fornecedorMB.fornecedor.nome}"  required="true" requiredMessage="Nome obrigatorio"/>
+														                       	 </div>     
+																		
+																		</div>	
+																			
+																		<div class="row" >		
+																			 
+																				   <div class="col-25">
+															                            	<p:outputLabel for="cnpj" value="Cnpj"/>
+															                            	<p:inputMask mask="99.999.999/9999-99" id="cnpj"  value="#{fornecedorMB.fornecedor.cnpj}" required="true" requiredMessage="Cnpj obrigatorio"/>
+															                        </div>	
+															                        
+															                        <div class="col-25">
+														                            		<p:outputLabel for="celular" value="Celular"/>
+														                            		<p:inputMask mask="(99) 99999-9999"  id="celular" value="#{fornecedorMB.fornecedor.celular}"/>
+														                            </div>
+														                            <div class="col-25">
+													                            			<p:outputLabel for="telefone" value="Telefone"/>
+													                            			<p:inputMask mask="(99) 99999-9999"  id="telefone" value="#{fornecedorMB.fornecedor.telefone}"/>
+													                               </div>
+													                  
+													                  	 </div> 
+													                  
+													                    <div class="row">
+												                            	
+												                            	<div class="col-50">
+												                            			<p:outputLabel for="email" value="E-mail"/>
+												                            			<p:inputText id="email" value="#{fornecedorMB.fornecedor.email}"/>
+												                            	</div>
+												                            
+												                        </div>
+												                        
+												                        <div class="row">
+												                            	
+												                            	<div class="col-50">
+												                            			<p:outputLabel for="endereco" value="Endereco"/>
+												                            			<p:inputText id="endereco"   value="#{fornecedorMB.fornecedor.endereco}"/>
+												                            	</div>
+												                         
+												                         </div><br/>
+																		
+																		<p:commandButton value="Salvar" action="#{fornecedorMB.update}" update="frmfornecedor" />
+															
+																</p:dialog>
+													
+															<p:dialog header="Deseja realmente excluir o Fornecedor" modal="true" widgetVar="removerfornecedor" width="400" height="100"  resizable="false" >
+					
+																	<div class="col-70">
+																			<p:outputLabel value="#{fornecedorMB.fornecedor.nome}"/><hr/>
+																	</div>
+																		
+																	<p:button value="Não" onclick="PF('removerfornecedor').hide(); return false;" />
+																	<p:commandButton value="Sim" action="#{fornecedorMB.remove}" update="frmfornecedor:tabelafornecedor"  onclick="PF('removerfornecedor').hide()"/>
+															
+															</p:dialog>
+													
+													</h:form>
+											
+												<p:dialog header="Novo Fornecedor" widgetVar="dialogfornecedor" modal="true"  draggable="true" width="700" height="295"  resizable="false" >
+									   							
+									   							<p:growl id="growl"  showDetail="true"  showSummary="false" />
+									   									
+									   									<h:form id="cadastrofornecedor">
+									   									
+											   									<div class="row" >
+													   									<div class="col-50">
+																                            	<p:outputLabel for="nome" value="Nome / Razão Social"/>
+																                            	<p:inputText   id="nome"  value="#{fornecedorMB.fornecedor.nome}"  required="true" requiredMessage="Nome obrigatorio"/>
+																                       	</div>     
+																				</div>	
+																			
+																				<div class="row" >		
+																				   		
+																				   		<div class="col-25">
+														                 			           	<p:outputLabel for="cnpj" value="Cnpj"/>
+														                      		      		<p:inputMask mask="99.999.999/9999-99"  id="cnpj" value="#{fornecedorMB.fornecedor.cnpj}" required="true" requiredMessage="Cnpj obrigatorio"/>
+														                           		 </div>
+																				   		
+															                        
+																                       <div class="col-25">
+															                            	<p:outputLabel for="celular" value="Celular"/>
+															                            	<p:inputMask mask="(99) 99999-9999" id="celular" value="#{fornecedorMB.fornecedor.celular}"/>
+															                            </div>
+															                            	
+															                            <div class="col-25">
+															                            	<p:outputLabel for="telefone" value="Telefone"/>
+															                            	<p:inputMask mask="(99) 99999-9999" id="telefone" value="#{fornecedorMB.fornecedor.telefone}"/>
+															                            </div>	
+														                               
+														                  		</div> 
+															                
+															                    
+														                    
+														                        <div class="row">
+
+															                            	<div class="col-50">
+															                            			<p:outputLabel for="email" value="E-mail"/>
+															                            			<p:inputText id="email"  value="#{fornecedorMB.fornecedor.email}"/>
+															                            	</div>
+															                            	
+															                            	
+																										                         
+														                         </div>
+														                          <div class="row">
+														                          	<div class="col-50">
+														                            			<p:outputLabel for="endereco" value="Endereco"/>
+														                            			<p:inputText id="endereco"   value="#{fornecedorMB.fornecedor.endereco}"/>
+														                            	</div>
+														                          
+														                          </div>
+														                         
+														                         
+														                         <br/>
+					
+															                      <p:commandButton value="Registrar" action="#{fornecedorMB.grava}" ajax="true"   update="@form" process="@all"/>
+																
+																		</h:form>
+															 	
+															 	<p:ajax event="close" update="frmfornecedor"/>
+													
+													</p:dialog>		 					
+				
+								</p:panel>
+	 
+					</ui:define>
+			
+		</ui:decorate>
+
+</html>

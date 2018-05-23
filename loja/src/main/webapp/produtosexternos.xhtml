@@ -1,0 +1,56 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+<ui:define name="title">
+        produtosexterno
+    </ui:define>
+
+<ui:decorate template="/home.xhtml">
+	<ui:define name="content">
+
+
+			<p:panel id="toggleableexterno" header="Produtos externo" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" style="margin-top: 50px;margin-bottom:40px">
+		 
+
+			<h:form id="frmprodutoexterno">
+
+				<p:dataTable var="produto" id="produtosexterno" value="#{produtoExternoMB.produtos}" 
+					rows="5" paginator="true"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15,50"  paginatorPosition="bottom" emptyMessage="Nenhum produto encontrado" >
+
+					<p:column headerText="Codigo de  barra" sortBy="#{produto.codigoBarra}" filterMatchMode="contains"  style="width:160px;font-size:14px;">
+						<h:outputText value="#{produto.codigoBarra}" />
+					</p:column>
+
+					<p:column headerText="Descricao" sortBy="#{produto.descricao}" filterMatchMode="contains" style="font-size:14px;">
+						<h:outputText value="#{produto.descricao}" />
+					</p:column>
+						
+					<p:column headerText="Quantidade"  sortBy="#{produto.quantidade}" filterMatchMode="contains" style="font-size:14px;">
+						<h:outputText value="#{produto.quantidade}" />
+					</p:column>
+
+					<p:column headerText="Preco venda" sortBy="#{produto.quantidade}"  style="font-size:14px;">
+						<h:outputText value="#{produto.precoVenda}">
+								<f:convertNumber  type="currency" currencySymbol="R$"/>
+						</h:outputText>
+					</p:column>
+					
+						 <f:facet name="footer">
+      				  				Total de produto cadastrado #{produtoExternoMB.produtos.size()}
+    					</f:facet> 
+    					
+				</p:dataTable>
+				
+				
+				
+			</h:form>
+		</p:panel>
+	</ui:define>
+</ui:decorate>
+</html>

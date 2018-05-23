@@ -1,0 +1,72 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:define name="title">
+        Clientes
+ </ui:define>
+
+<ui:decorate template="/home.xhtml">
+
+	<ui:define name="content">
+
+		<p:panel id="toggleable" header="Entrada de Produto" toggleable="true"
+			closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel"
+			style="margin-top: 50px;margin-bottom:40px">
+
+			<h:form id="meuform">
+
+					<div class="row">
+							
+							<p:growl id="growl"  showDetail="true"  showSummary="false" />
+							
+							<p:panel id="pnl">
+								<div class="col-50">
+										<p:outputLabel for="barra" value="Informa codigo de barra do produto" />
+										<p:inputText id="barra" value="#{produtoMB.produto.codigoBarra}" required="true" requiredMessage="Informe codigo de barra"/>
+								</div>
+								
+								
+								
+							<div class="col-25">
+										<p:outputLabel for="qtd" value="Quantidade atual" />
+										<p:inputText id="qtd" value="#{produtoMB.produto.quantidade}" readonly="true"/>
+								</div>
+								
+								<div class="col-25">
+										<p:outputLabel for="produ" value="Produto" />
+										<p:inputText id="produ" value="#{produtoMB.produto.descricao}" readonly="true"/>
+								</div>
+								
+								<div class="col-25">
+										<p:commandButton value="Pesquisar" action="#{produtoMB.recuperaProdutoPeloCodigoBarra}"  update="pnl" process="pnl"/>
+								</div>
+							</p:panel>
+							
+								<div class="col-25">
+										 <p:outputLabel for="qtdentrada" value="Quantidade de entrada" />
+										<p:inputText id="qtdentrada" required="true"  value="#{produtoMB.quantidadeSelecionada}"   requiredMessage="Quantidade obrigatoria" />
+								</div>
+								
+								<div class="col-25">
+										<p:commandButton value="Registrar"  ajax="true" actionListener="#{produtoMB.entradaProduto}"  update="meuform"/>
+								</div>
+							<div class="col-25">
+							</div>
+						
+					</div>
+					
+					</h:form>
+
+			
+
+		</p:panel>
+
+	</ui:define>
+
+</ui:decorate>
+
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Início</title>
+	<link rel="stylesheet" type="text/css" href="css/estilo.css"/>
+	<script type="text/javascript" src="js/conversorData.js"/>
+</h:head>
+<h:body >
+ <h:form>
+  <p:menubar>
+    		
+         	<p:menuitem value="Início" url="home.xhtml" icon="ui-icon-arrow-4-diag" />
+    		
+        <p:submenu label="Estoque" icon="ui-icon-arrowthick-1-s">
+            	<p:separator />
+            	<p:menuitem value="Novo produto" url="produto.xhtml" icon="ui-icon-arrow-4-diag" />
+            	<p:menuitem value="Produtos" url="produtos.xhtml" icon="ui-icon-arrow-4-diag"/>
+            	<p:separator />
+            	
+            	<p:menuitem value="Nova Categoria" url="categorias.xhtml" icon="ui-icon-arrow-4-diag"/>
+            	<p:separator />
+            	<p:menuitem value="Novo Cliente" url="clientes.xhtml" icon="ui-icon-arrow-4-diag"/>
+                <p:separator />
+                <p:menuitem value="Novo Fornecedor" url="fornecedores.xhtml" icon="ui-icon-arrow-4-diag"/>
+                <p:separator />
+        		 <p:menuitem value="Entrada Produto" url="entradaproduto.xhtml" icon="ui-icon-arrow-4-diag"/>
+           
+           	
+        </p:submenu>
+        
+        
+        <p:submenu label="Estoque externo" icon="ui-icon-arrowthick-1-s">
+            	<p:separator />
+            	<p:menuitem value="Estoques geral" url="produtosexternosporestoque.xhtml" icon="ui-icon-arrow-4-diag" />
+            	<p:menuitem value="Novo Produto" url="cadastraprodutoexterno.xhtml" icon="ui-icon-arrow-4-diag"/>
+            	<p:separator />
+            	
+            	<p:menuitem value="Nova Categoria" url="categorias.xhtml" icon="ui-icon-arrow-4-diag"/>
+            	<p:separator />
+            	
+        
+        </p:submenu>
+        
+        <p:submenu label="Clientes / Fornecedores" icon="ui-icon-arrowthick-1-s">
+         	<p:menuitem value="Clientes" url="clientes.xhtml" icon="ui-icon-arrow-4-diag"/>
+         	<p:separator/>
+         	<p:menuitem value="Fornecedores" url="fornecedores.xhtml" icon="ui-icon-arrow-4-diag"/>
+         </p:submenu>
+        
+        
+         <p:submenu label="Controle" icon="ui-icon-arrowthick-1-s">
+            <p:menuitem value="Entrada de  produto" url="produto.xhtml" icon="ui-icon-arrow-4-diag" />
+            <p:menuitem value="Entrada Produto" url="entradaproduto.xhtml" icon="ui-icon-arrow-4-diag"/>
+            <p:menuitem value="Saida Produto" url="saidaproduto.xhtml" icon="ui-icon-arrow-4-diag"/>
+            <p:separator />
+            <p:menuitem value="Categorias" url="categorias.xhtml" icon="ui-icon-arrow-4-diag"/>
+             <p:separator />
+              <p:menuitem value="Cadastro produto externo" url="cadastraprodutoexterno.xhtml" icon="ui-icon-arrow-4-diag"/>
+              <p:separator />
+              <p:menuitem value="Produtos externo" url="produtosexternosporestoque.xhtml" icon="ui-icon-arrow-4-diag"/>
+              
+        </p:submenu>
+        
+ 
+        
+         
+         <p:submenu label="Fornecedores" icon="ui-icon-arrowthick-1-s">
+         </p:submenu>
+         
+ 
+ 		<p:submenu label="Relatorios" icon="ui-icon-arrowthick-1-s">
+            <p:menuitem value="Relatorio" url="#" icon="ui-icon-arrow-4-diag"/>
+        </p:submenu>
+        
+        
+        <p:submenu label="Administrativo" icon="ui-icon-arrowthick-1-s">
+            <p:menuitem value="Estoque minimo" url="#" icon="ui-icon-arrow-4-diag"/>
+            <p:menuitem value="Estoque maximo" url="#" icon="ui-icon-arrow-4-diag"/>
+            <p:menuitem value="Estoque por vendedores" url="#" icon="ui-icon-arrow-4-diag"/>
+            <p:menuitem value="Permissoes de usuarios" url="#" icon="ui-icon-arrow-4-diag"/>
+        </p:submenu>
+ 
+ 
+        <p:submenu label="Manual" icon="ui-icon-arrowthick-1-s">
+            <p:submenu label="Manuais" icon="ui-icon-search">
+                <p:menuitem value="Cadastro de produto" url="#" />
+                <p:menuitem value="Entrada de produto" url="#" />
+                <p:menuitem value="Saida de produtos" url="#" />
+            </p:submenu>
+        </p:submenu>
+ 
+        <f:facet name="options">
+            <p:commandButton type="button" value="Sair" icon="ui-icon-extlink" />
+        </f:facet>
+    
+    </p:menubar>
+    
+    
+ </h:form>
+ 
+
+
+  <div id="content">
+		  <ui:insert name="content">
+		  		
+		  </ui:insert>
+	</div>
+
+ 
+</h:body>
+</html>
+
+
+
+
+
+
+

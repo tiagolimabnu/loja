@@ -1,0 +1,84 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<style type="text/css">
+    .white-button.ui-button.ui-state-default {
+        background-color: #ffffff;
+        color: #222222;
+        border-color: #d6d6d6;
+    }
+ 
+    .white-button.ui-button.ui-state-default:enabled:hover, 
+    .white-button.ui-button.ui-state-default:focus {
+        background-color: #f2f2f2;
+        border-color: #ccc;
+        color: #373a3c;
+    }
+ 
+    .green-button.ui-button.ui-state-default {
+        background-color: #5cb85c;
+        border-color: #5cb85c;
+        color: #fff;
+    }
+ 
+    .green-button.ui-button.ui-state-default:enabled:hover, 
+    .green-button.ui-button.ui-state-default:focus {
+        background-color: #4cae4c;
+        border-color: #5cb85c;
+    }
+ 
+    .red-button.ui-button.ui-state-default {
+        background-color: #d9534f;
+        border-color: #d9534f;
+        color: #fff;
+    }
+ 
+    .red-button.ui-button.ui-state-default:enabled:hover, 
+    .red-button.ui-button.ui-state-default:focus {
+        background-color: #d43f3a;
+        border-color: #d9534f;
+    }
+ 
+</style>
+
+<ui:define name="title">
+        Produtos
+ </ui:define>
+ 
+
+<ui:decorate template="/home.xhtml">
+
+	<ui:define name="content">
+		
+		
+		                            
+		<p:panel id="toggleable" header="Consulta Produto" toggleable="true"
+			closable="true" toggleSpeed="300" closeSpeed="200" widgetVar="panel"
+			style="width: 80%;margin-top: 50px;margin-bottom:40px;margin-left: auto; margin-right: auto">
+
+
+			<h:form id="frmconsulta">
+			<p:outputLabel for="cons" value="Descricao"/>    	
+			<p:inputText id="cons" value=""/>
+
+			<p:commandButton value=""/>
+			</h:form>
+
+
+		</p:panel>
+		
+
+	</ui:define>
+
+</ui:decorate>
+
+</html>
+
+
+
+
+

@@ -1,0 +1,197 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:define name="title">
+        Clientes
+ </ui:define>
+		
+		<ui:decorate template="/home.xhtml">
+			
+				<ui:define name="content">
+			
+								<p:panel id="toggleable" header="Clientes" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" style="margin-top: 50px;margin-bottom:40px">
+		 
+					   				 		<p:commandButton value="Novo Cliente" type="button" onclick="PF('dialogcliente').show();"/>
+					   				 
+													 <h:form id="frmcliente">
+													
+															<p:dataTable var="cliente" id="clienteTabela" value="#{clienteMB.clientes}" 
+																		rows="5" paginator="true"
+																		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+																		rowsPerPageTemplate="5,10,15,50"  emptyMessage="Nenhum cliente encontrado" paginatorPosition="bottom" >
+												    				
+													    				<p:column style="width: 60px">
+													    				 		 <p:commandButton oncomplete="PF('atualizacliente').show()" icon="ui-icon-pencil" process="@this" update="frmcliente">
+																						<f:setPropertyActionListener value="#{cliente}" target="#{clienteMB.cliente}" />
+																				 </p:commandButton>
+													    				</p:column>
+																
+																		<p:column headerText="NOME" filterBy="#{cliente.nome}" sortBy="#{cliente.nome}" filterMatchMode="contains" style="font-size:14px">
+																				<h:outputText value="#{cliente.nome}" />
+																		</p:column>
+												
+																		<p:column headerText="CPF"  sortBy="#{cliente.cpf}" filterMatchMode="contains" style="width:120px;font-size:14px">
+																				<h:outputText value="#{cliente.cpf}" />
+																		</p:column>
+																	
+																		<p:column headerText="CELULAR" sortBy="#{cliente.celular}" style="width:122px;font-size:14px;">
+																				<h:outputText value="#{cliente.celular}"/>
+																		</p:column>
+												
+																		<p:column headerText="TELEFONE"  sortBy="#{cliente.telefone}" style="width:122px;font-size:14px;" >
+																				<h:outputText value="#{cliente.telefone}" />
+																		</p:column>
+												
+																		<p:column headerText="EMAIL"  sortBy="#{cliente.email}" style="font-size:14px;">
+																				<h:outputText value="#{cliente.email}" />
+																		</p:column>
+																		
+																		<p:column headerText="ENDEREÇO"  sortBy="#{cliente.email}" style="font-size:14px;">
+																				<h:outputText value="#{cliente.endereco}" />
+																		</p:column>
+																			
+																		<p:column style="width: 60px">    			
+												                        		<p:commandButton oncomplete="PF('removercliente').show()" icon="ui-icon-trash" process="@this" update="frmcliente">
+																						<f:setPropertyActionListener value="#{cliente}" target="#{clienteMB.cliente}" />
+																				</p:commandButton>
+												            	  		</p:column>
+	
+															</p:dataTable>
+																
+															<!-- Atualiza cliente -->
+															<p:dialog header="Atualizar Cliente" modal="true" draggable="true" width="700" height="350"  resizable="false"
+																		widgetVar="atualizacliente" >
+																	
+																		<div class="row" >
+											   									
+											   									 <div class="col-50">
+														                            	<p:outputLabel for="nome" value="Nome"/>
+														                            	<p:inputText   id="nome"  value="#{clienteMB.cliente.nome}"  required="true" requiredMessage="Nome obrigatorio"/>
+														                       	 </div>     
+																		
+																		</div>	
+																			
+																		<div class="row" >		
+																			 
+																				   <div class="col-25">
+															                            	<p:outputLabel for="cpf" value="Cpf"/>
+															                            	<p:inputMask mask="999.999.999-99" id="cpf"  value="#{clienteMB.cliente.cpf}" required="true" requiredMessage="Cpf  obrigatorio"/>
+															                        </div>	
+															                        
+															                        <div class="col-25">
+														                            		<p:outputLabel for="celular" value="Celular"/>
+														                            		<p:inputMask mask="(99) 99999-9999"  id="celular" value="#{clienteMB.cliente.celular}"/>
+														                            </div>
+														                            <div class="col-25">
+													                            			<p:outputLabel for="telefone" value="Telefone"/>
+													                            			<p:inputMask mask="(99) 99999-9999"  id="telefone" value="#{clienteMB.cliente.telefone}"/>
+													                               </div>
+													                  
+													                  	 </div> 
+													                  
+													                    <div class="row">
+												                            	
+												                            	<div class="col-50">
+												                            			<p:outputLabel for="email" value="E-mail"/>
+												                            			<p:inputText id="email" value="#{clienteMB.cliente.email}"/>
+												                            	</div>
+												                            
+												                        </div>
+												                        
+												                        <div class="row">
+												                            	
+												                            	<div class="col-50">
+												                            			<p:outputLabel for="endereco" value="Endereco"/>
+												                            			<p:inputText id="endereco"   value="#{clienteMB.cliente.endereco}"/>
+												                            	</div>
+												                         
+												                         </div><br/>
+																		
+																		<p:commandButton value="Salvar" action="#{clienteMB.atualiza}" update="frmcliente" />
+															
+																</p:dialog>
+													
+															<!-- Exclui cliente -->
+															<p:dialog header="Deseja realmente excluir o Cliente" modal="true" widgetVar="removercliente" width="350" height="100"  resizable="false" >
+					
+																	<div class="col-70">
+																			<p:outputLabel value="#{clienteMB.cliente.nome}"/><hr/>
+																	</div>
+																		
+																	<p:button value="Não" onclick="PF('removercliente').hide(); return false;" />
+																	<p:commandButton value="Sim" action="#{clienteMB.remove(clienteMB.cliente)}" update="frmcliente:clienteTabela"  onclick="PF('removercliente').hide()"/>
+															
+															</p:dialog>
+													
+													</h:form>
+											
+												<!-- Novo cliente -->
+												<p:dialog header="Novo Cliente" widgetVar="dialogcliente" modal="true"  draggable="true" width="700" height="350"  resizable="false" >
+									   							
+									   							<p:growl id="growl"  showDetail="true"  showSummary="false" />
+									   									
+									   									<h:form id="cadastrocliente">
+									   									
+											   									<div class="row" >
+													   									<div class="col-50">
+																                            	<p:outputLabel for="nome" value="Nome"/>
+																                            	<p:inputText   id="nome"  value="#{clienteMB.cliente.nome}"  required="true" requiredMessage="Nome obrigatorio"/>
+																                       	</div>     
+																				</div>	
+																			
+																				<div class="row" >		
+																				   		
+																				   		<div class="col-25">
+															                            		<p:outputLabel for="cpf" value="Cpf"/>
+															                            		<p:inputMask mask="999.999.999-99" id="cpf"  value="#{clienteMB.cliente.cpf}" required="true" requiredMessage="Cpf  obrigatorio"/>
+															                        	</div>	
+															                        
+																                        <div class="col-25">
+															                            		<p:outputLabel for="celular" value="Celular"/>
+															                            		<p:inputMask mask="(99) 99999-9999"  id="celular" value="#{clienteMB.cliente.celular}"/>
+															                            </div>
+														                            
+															                            <div class="col-25">
+														                            			<p:outputLabel for="telefone" value="Telefone"/>
+														                            			<p:inputMask mask="(99) 99999-9999"  id="telefone" value="#{clienteMB.cliente.telefone}"/>
+														                               </div>
+														                               
+														                  		</div> 
+															                
+															                    <div class="row">
+														                            	
+														                            	<div class="col-50">
+														                            			<p:outputLabel for="email" value="E-mail"/>
+														                            			<p:inputText id="email" value="#{clienteMB.cliente.email}"/>
+														                            	</div>
+														                            
+														                        </div>
+														                    
+														                        <div class="row">
+														                            	
+														                            	<div class="col-50">
+														                            			<p:outputLabel for="endereco" value="Endereco"/>
+														                            			<p:inputText id="endereco"   value="#{clienteMB.cliente.endereco}"/>
+														                            	</div>
+														                         
+														                         </div><br/>
+					
+															                      <p:commandButton value="Registrar" action="#{clienteMB.grava}" ajax="true"   update="@form" process="@all"/>
+																
+																		</h:form>
+															 	
+															 	<p:ajax event="close" update="frmcliente"/>
+													
+													</p:dialog>		 					
+				
+								</p:panel>
+	 
+					</ui:define>
+			
+		</ui:decorate>
+
+</html>

@@ -1,0 +1,108 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:define name="title">
+        Categorias
+ </ui:define>
+		
+		<ui:decorate template="/home.xhtml">
+			
+				<ui:define name="content">
+			
+								<p:panel id="toggleable" header="Categorias" toggleable="true" closable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" style="margin-top: 50px;margin-bottom:40px" >
+		 
+					   				 		<p:commandButton value="Nova Categoria" type="button" onclick="PF('dialogcategoria').show();"/>
+					   				 
+													 <h:form id="frmcategoria">
+													
+															<p:dataTable var="categoria" id="categoriaTabela" value="#{categoriaMB.categorias}" 
+																		rows="10" paginator="true"
+																		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+																		rowsPerPageTemplate="5,10,15,50"  emptyMessage="Nenhuma categoria encontrada" paginatorPosition="bottom" >
+												    				
+													    				<p:column style="width: 60px">
+													    				 		 <p:commandButton oncomplete="PF('atualizacategoria').show()" icon="ui-icon-pencil" process="@this" update="frmcategoria">
+																						<f:setPropertyActionListener value="#{categoria}" target="#{categoriaMB.categoria}" />
+																				 </p:commandButton>
+													    				</p:column>
+																
+																		<p:column headerText="Descricao" filterBy="#{categoria.descricao}" sortBy="#{categoria.descricao}" filterMatchMode="contains" style="font-size:14px">
+																				<h:outputText value="#{categoria.descricao}" />
+																		</p:column>
+																			
+																		<p:column style="width: 60px">    			
+												                        		<p:commandButton oncomplete="PF('removercategoria').show()" icon="ui-icon-trash" process="@this" update="frmcategoria">
+																						<f:setPropertyActionListener value="#{categoria}" target="#{categoriaMB.categoria}" />
+																				</p:commandButton>
+												            	  		</p:column>
+												            	  		
+																		<f:facet name="footer">
+																	      		Total de categorias cadastrado #{categoriaMB.categorias.size()}
+																	    </f:facet>
+															</p:dataTable>
+																
+															<!-- Atualiza categoria -->
+															<p:dialog header="atualizar Categoria" modal="true" draggable="true" width="700" height="130"  resizable="false"
+																		widgetVar="atualizacategoria" >
+																	
+																		<div class="row" >
+											   									 <div class="col-50">
+														                            	<p:outputLabel for="categ" value="Descrição"/>
+														                            	<p:inputText   id="categ"  value="#{categoriaMB.categoria.descricao}"  required="true" requiredMessage="Descrição obrigatória"/>
+														                       	 </div>     
+																		</div>	
+																		<br/>
+																		
+																		<p:commandButton value="Registrar" action="#{categoriaMB.grava}" update="frmcategoria" />
+															
+																</p:dialog>
+													
+															<!-- Exclui cliente -->
+															<p:dialog header="Deseja realmente excluir a Categoria" modal="true" widgetVar="removercategoria" width="350" height="90"  resizable="false" >
+					
+																	<div class="col-70">
+																			<p:outputLabel value="#{categoriaMB.categoria.descricao}"/><hr/>
+																	</div>
+																		
+																	<p:button value="Não" onclick="PF('removercategoria').hide(); return false;" />
+																	<p:commandButton value="Sim" action="#{categoriaMB.remove}" update="frmcategoria:categoriaTabela"  onclick="PF('removercategoria').hide()"/>
+															
+															</p:dialog>
+													
+													</h:form>
+											
+												<!-- Novo cliente -->
+												<p:dialog header="Nova Categoria" widgetVar="dialogcategoria" modal="true"  draggable="true" width="700" height="110"  resizable="false" >
+									   							
+									   							<p:growl id="growl"  showDetail="true"  showSummary="false" />
+									   									
+									   									<h:form id="cadastrocliente">
+									   									
+											   									<div class="row" >
+													   									<div class="col-50">
+																                            	<p:outputLabel for="descri" value="Descrição"/>
+																                            	<p:inputText   id="descri"  value="#{categoriaMB.categoria.descricao}"  required="true" requiredMessage="Descrição obrigatória"/>
+																                       	</div>     
+																				</div>	
+														                    
+														                        <br/>
+					
+															                      <p:commandButton value="Registrar" action="#{categoriaMB.grava}" ajax="true"   update="@form" process="@all"/>
+																
+																		</h:form>
+															 	
+															 	<p:ajax event="close" update="frmcategoria"/>
+													
+													</p:dialog>		 					
+				
+								</p:panel>
+	 
+					</ui:define>
+			
+		</ui:decorate>
+
+</html>
